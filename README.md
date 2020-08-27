@@ -29,12 +29,17 @@ docker run -d -p 3000:3000 --name=grafana -e 'GF_INSTALL_PLUGINS=grafana-simple-
 ## Usage
 
 After installing Grafana with simple JSON plugin, you need to set the URL of your RESTful APIs server as the datasoruce of the dashboard.
+
 1. Click **Configuration** -> **Datasource** -> **Add data source** -> **SimpleJson**(under Others)
+
 2. Add the URL of your RESTful APIs server and then click **Save & Test**
 ![](https://i.imgur.com/1flzTRt.png)
+
 3. Create a new dashboard and add a new panel
+
 4. Select the target metric
 ![](https://i.imgur.com/VQG9EGb.png)
+
 5. Get the updated panel
 ![](https://i.imgur.com/DJK0Ecu.png)
 
