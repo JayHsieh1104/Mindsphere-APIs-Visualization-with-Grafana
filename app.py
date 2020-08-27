@@ -31,7 +31,7 @@ def get_auth_token():
     # Payload for getting auth token
     payload = "{\"grant_type\": \"client_credentials\",\"appName\":\"grafana\",\"appVersion\": \"1.0.0\",\"hostTenant\": \"sagtwdev\",\"userTenant\": \"sagtwdev\"}"
     # Encoding of App Credentials in Base64 format
-    encoded = base64.b64encode(b'sagtwdev-grafana-1.0.0:TJdNerP2ofc4zb9YTpIbdQvJue5KSMdvXdQQQQQQQQQ (PLEASE REPLACE IT WITH YOUR TOKEN)').decode()
+    encoded = base64.b64encode(b'sagtwdev-grafana-1.0.0:____________PLACE_SECRECT_KEY_HERE_______________ (PLEASE REPLACE IT WITH YOUR SECRECT TOKEN)').decode()
     headers = {
     'X-SPACE-AUTH-KEY': 'Bearer ' + encoded,
     'Content-Type': 'application/json'
