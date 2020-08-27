@@ -18,7 +18,7 @@ On the other side, Grafana is used as the frontend for data visualization. It wi
 
 This project requires [Flask](https://flask.palletsprojects.com/en/1.1.x/), [Grafana](https://grafana.com/), and [Docker](https://www.docker.com/).
 
-In this project, I run my Flask server on Google Cloud Platform[https://cloud.google.com/gcp/getting-started] and install Grafana in docker container. You can also install them under localhost or on cloud platform like AWS, Azure, and GCP.
+In this project, I run my Flask server on Google [Cloud Platform](https://cloud.google.com/gcp/getting-started) and install Grafana in docker container. You can also install them under localhost or on cloud platform like AWS, Azure, and GCP.
 
 Lauch docker container with simple JSON plugin
 
