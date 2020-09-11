@@ -2,6 +2,7 @@ from calendar import timegm
 from datetime import datetime, timedelta
 from flask import Flask, request, jsonify
 
+import os
 import sys
 import json
 import base64
@@ -10,10 +11,12 @@ import _strptime
 
 
 app = Flask(__name__)
-app.debug = True
 
 
 class BearerAuth(requests.auth.AuthBase):
+    '''
+        Class for Bearer token structure
+    '''
     def __init__(self, token):
         self.token = token
     def __call__(self, r):
@@ -23,15 +26,18 @@ class BearerAuth(requests.auth.AuthBase):
 
 def get_auth_token():
     '''
-        get an auth token
+        Get an auth Bearer token via sending an HTTP request
+        Please replace URL, TOKEN_ENDPOINT, parameters in the payload, and encoded with your value.
     '''
     URL = 'https://gateway.eu1.mindsphere.io'
     TOKEN_ENDPOINT = '/api/technicaltokenmanager/v3/oauth/token'
 
-    # Payload for getting auth token
+    # Payload for getting auth token (Please replace the existed parameters with your value)
     payload = "{\"grant_type\": \"client_credentials\",\"appName\":\"grafana\",\"appVersion\": \"1.0.0\",\"hostTenant\": \"sagtwdev\",\"userTenant\": \"sagtwdev\"}"
-    # Encoding of App Credentials in Base64 format
-    encoded = base64.b64encode(b'sagtwdev-grafana-1.0.0:____________PLACE_SECRECT_KEY_HERE_______________ (PLEASE REPLACE IT WITH YOUR SECRECT TOKEN)').decode()
+    
+    # Encoding of App Credentials in Base64 format (Please replace the existed parameters with your value)
+    encoded = base64.b64encode(b'sagtwdev-grafana-1.0.0:TJdNerP2ofc4zb9YTpIbdQvJue5KSMdvXdGN1VVM4iM56XD').decode()
+
     headers = {
     'X-SPACE-AUTH-KEY': 'Bearer ' + encoded,
     'Content-Type': 'application/json'
@@ -48,7 +54,7 @@ def get_auth_token():
 
 def get_response(_url):
     '''
-        send request and get content of respeonse
+        Send a request with retrieved Bearer token and get content of the response
     '''
     auth_token = get_auth_token()
     response = requests.get(url = _url, auth = BearerAuth(auth_token))
@@ -66,24 +72,37 @@ def health_check():
     
 @app.route('/search', methods=['POST'])
 def search():
-    # Used by the find metric options on the query tab in Grafana panels.
+    '''
+        Provide metric options on the query tab in Grafana panels.
+    '''
+    # To simplify the function, the options are fixed. 
+    # However, for increasing the flexibility, you can try to return a JSON array based on data returned from another JSON query.
     return jsonify(["Ambient_Temp", "Motor_Temp", "Raw_Vibration_Signal", "aCrest", "vCrest"])
 
 @app.route('/query', methods=['POST'])
 def query():
+    '''
+        Query target asset, parse the returned APIs data and return the organized time series data in JSON format
+    '''
     req = request.get_json()
     _req_attribute = req['targets'][0]['target']
 
+    # Asset and aspect are fixed here. Please replace them with your target object's IDs.
     _asset_id = 'ed68e42a946441bc8b2a2a54ebb174b2'
     _aspect_id = 'aspect_Virtual_Motor_Condition'
+
+
+    # Parse the time range requested from Grafana panel and estimate interval value and interval unit
+    _interval_point_num = 50
     
+    # If the period between "from" and "to", the two parameters used in getting data from Mindsphere APIs,
+    # is not equal to N * _intervalValue, the GET request will be failed. So we can't just send a GET request 
+    # with the "from" and "to" parameters assigned by Grafana. We need to adjust the request before sending it.
     _from = req['range']['from']
     _to = req['range']['to']
     _datetime_from = datetime.strptime(req['range']['from'][:19], "%Y-%m-%dT%H:%M:%S")
     _datetime_to = datetime.strptime(req['range']['to'][:19], "%Y-%m-%dT%H:%M:%S")
 
-    # Parse the time range from Grafana panel and then estimate interval value and interval unit
-    _interval_point_num = 50
     _interval = int((_datetime_to - _datetime_from).total_seconds()) // _interval_point_num
     _intervalValue = _interval
     if _interval > 86400:
@@ -128,9 +147,11 @@ def query():
     ]
     return jsonify(data)
 
-# Used for accepting client post annotations
 @app.route('/annotations', methods=['POST'])
 def annotations():
+    '''
+        [Not implement] For accepting client post annotations
+    '''
     req = request.get_json()
     data = [
         {
@@ -145,32 +166,37 @@ def annotations():
     return jsonify(data)
 
 
-# Optional tag
 @app.route('/tag-keys', methods=['POST'])
 def tag_keys():
+    '''
+        [Not implement]
+    '''
     data = [
-        # {"type": "string", "text": "City"},
-        # {"type": "string", "text": "Country"}
+        {"type": "string", "text": "City"},
+        {"type": "string", "text": "Country"}
     ]
     return jsonify(data)
 
 
-# Optional tag
 @app.route('/tag-values', methods=['POST'])
 def tag_values():
+    '''
+        [Not implement]
+    '''
     req = request.get_json()
     if req['key'] == 'City':
         return jsonify([
-            # {'text': 'Tokyo'},
-            # {'text': 'São Paulo'},
-            # {'text': 'Jakarta'}
+            {'text': 'Tokyo'},
+            {'text': 'São Paulo'},
+            {'text': 'Jakarta'}
         ])
     elif req['key'] == 'Country':
         return jsonify([
-            # {'text': 'China'},
-            # {'text': 'India'},
-            # {'text': 'United States'}
+            {'text': 'China'},
+            {'text': 'India'},
+            {'text': 'United States'}
         ])
 
-if __name__ == '__main__':
-    app.run()
+
+if __name__ == "__main__":
+    app.run(debug=True, host='0.0.0.0', port=80)

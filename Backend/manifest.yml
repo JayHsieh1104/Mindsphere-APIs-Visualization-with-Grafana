@@ -1,0 +1,6 @@
+applications:
+  - name: flask_server
+    memory: 128MB
+    disk_quota: 256MB
+    random-route: true
+    command: python app.py
