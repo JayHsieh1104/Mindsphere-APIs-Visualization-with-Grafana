@@ -28,24 +28,27 @@ We will install docker and run Grafana with Grafana Simple JSON plugin in a dock
 
 After installing Grafana with simple JSON plugin, you need to set the URL of your RESTful APIs server as the data source of the Grafana dashboard.
 
-1. Click **Configuration** -> **Datasource** -> **Add data source** -> **SimpleJson**
+1. Use your browser to open the URL of Grafana and then login
+    ![](https://i.imgur.com/fI8e3H9.png)
+    * Default Account / Password: admin / admin
+
+2. Click **Configuration** -> **Datasource** -> **Add data source** -> **SimpleJson**
     1. ![](https://i.imgur.com/lzR1J5y.png)
     2. ![](https://i.imgur.com/BEEGpwz.png)
     3. ![](https://i.imgur.com/20fxd2H.png)
 
 
-2. Add the URL of your Flask server (or your RESTful APIs server) and then click **Save & Test**
+3. Add the URL of your Flask server (or your RESTful APIs server) and then click **Save & Test**
 ![](https://i.imgur.com/G1P7XKW.png)
 
-3. Create a new dashboard and add a new panel
+4. Create a new dashboard and add a new panel
     1. ![](https://i.imgur.com/CjwI3ah.png)
     2. ![](https://i.imgur.com/sAcl50o.png)
 
-4. Select a target metric
+5. Select a target metric
 ![](https://i.imgur.com/cD7YoxQ.png)
 
-
-5. Get the information panel of the selected metric.
+6. Get the information panel of the selected metric.
 ![](https://i.imgur.com/DJK0Ecu.png)
 
 ## License
