@@ -1,46 +1,35 @@
-# Mindsphere-APIs-Visualization-with-Grafana
+# Mindsphere APIs Visualization with Grafana
 
 This project amis to fetch data from Siemens's Mindsphere RESTful APIs and then visualize it with Grafana.
 
-In the project, Flask server works as the backend server. It will fetch data from Mindshpere RESTful APIs, parse the data, and then send it in JSON format when receiving request sent from frontend.
+In the project, Grafana is used as the frontend for data visualization. It will send request to the Flask server, parse the returned JSON object and then draw statistical diagram on the assigned dashboard.
 
-On the other side, Grafana is used as the frontend for data visualization. It will send request to the Flask server, parse the returned JSON object and then draw statistical diagram on the assigned dashboard.
+On the backend side, A Flask server is responsible for fetching data from Mindshpere RESTful APIs, parsing the data, and responsing in JSON format when receiving request sent from frontend.
 
 ## Table of Contents
 
-- [Mindsphere-APIs-Visualization-with-Grafana](#mindsphere-apis-visualization-with-grafana)
+- [Mindsphere APIs Visualization with Grafana](#mindsphere-apis-visualization-with-grafana)
   - [Table of Contents](#table-of-contents)
-  - [Install](#install)
-  - [Usage](#usage)
+  - [System Architecture](#system-architecture)
+  - [Installation](#installation)
+  - [Example Results](#example-results)
   - [License](#license)
 
-## Install
+## System Architecture
 
-This project requires [Flask](https://flask.palletsprojects.com/en/1.1.x/), [Grafana](https://grafana.com/), and [Docker](https://www.docker.com/).
+![](https://i.imgur.com/e5uM2Wp.png)
 
-In this project, I run my Flask server on Google [Cloud Platform](https://cloud.google.com/gcp/getting-started) and install Grafana in docker container. You can also install them under localhost or on cloud platform like AWS, Azure, and GCP.
+## Installation
 
-Lauch docker container with simple JSON plugin
+Please refer the README files under the Frontend and Backend folders.
 
-```sh
-docker run -d -p 3000:3000 --name=grafana -e 'GF_INSTALL_PLUGINS=grafana-simple-json-datasource' grafana/grafana
-```
+## Example Results
 
-## Usage
+* A interactive interface displaying the time series data fetched from Siemens's MindSphere APIs; the source of APIs data can be customers' devices.
+* Provide customers a clear and user-frinedly monitor system; easily supervisor the target value with an assigned period.
 
-After installing Grafana with simple JSON plugin, you need to set the URL of your RESTful APIs server as the datasoruce of the dashboard.
+![](https://i.imgur.com/cD7YoxQ.png)
 
-1. Click **Configuration** -> **Datasource** -> **Add data source** -> **SimpleJson**(under Others)
-
-2. Add the URL of your RESTful APIs server and then click **Save & Test**
-![](https://i.imgur.com/1flzTRt.png)
-
-3. Create a new dashboard and add a new panel
-
-4. Select the target metric
-![](https://i.imgur.com/VQG9EGb.png)
-
-5. Get the updated panel
 ![](https://i.imgur.com/DJK0Ecu.png)
 
 ## License
