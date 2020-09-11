@@ -36,7 +36,7 @@ def get_auth_token():
     payload = "{\"grant_type\": \"client_credentials\",\"appName\":\"grafana\",\"appVersion\": \"1.0.0\",\"hostTenant\": \"sagtwdev\",\"userTenant\": \"sagtwdev\"}"
     
     # Encoding of App Credentials in Base64 format (Please replace the existed parameters with your value)
-    encoded = base64.b64encode(b'sagtwdev-grafana-1.0.0:TJdNerP2ofc4zb9YTpIbdQvJue5KSMdvXdGN1VVM4iM56XD').decode()
+    encoded = base64.b64encode(b'sagtwdev-grafana-1.0.0:wG5TwiFbBHFujvsG57o89ggV3ox4nRtQhv7aMVg8anW56XD').decode()
 
     headers = {
     'X-SPACE-AUTH-KEY': 'Bearer ' + encoded,
@@ -199,4 +199,4 @@ def tag_values():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0', port=80)
+    app.run(debug=True, port=3002)
