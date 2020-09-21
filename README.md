@@ -25,7 +25,7 @@ Please refer to the README files under the Frontend and Backend folders.
 
 ## Example Results
 
-* A interactive interface displaying the time series data fetched from Siemens's MindSphere APIs; the source of APIs data can be customers' devices.
+* A highly interactive interface displaying the time series data fetched from Siemens's MindSphere APIs; the source of APIs data can be customers' devices.
 * Provide customers a clear and user-friendly monitor system; easily supervisor the target value with an assigned period.
 
 ![](https://i.imgur.com/cD7YoxQ.png)
