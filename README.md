@@ -1,8 +1,8 @@
 # Mindsphere APIs Visualization with Grafana
 
-This project aims to fetch data from Siemens's Mindsphere RESTful APIs and then visualize it with Grafana.
+The project aims to fetch data from Siemens's Mindsphere RESTful APIs and then visualize it with Grafana.
 
-In the project, Grafana is used as the frontend for data visualization. It will send a request to the Flask server, parse the returned JSON object and then draw a statistical diagram on the assigned dashboard.
+In this project, Grafana is used as the frontend for data visualization. It will send a request to the Flask server, parse the returned JSON object and then draw a statistical diagram on the assigned dashboard.
 
 On the backend side, A Flask server is responsible for fetching data from Mindshpere RESTful APIs, parsing the data, and responding in JSON format when receiving requests sent from the frontend.
 
